@@ -1,0 +1,112 @@
+---
+name: test
+properties:
+  - _name: id
+    tags: [random_id]
+    type: int32
+  - _name: name
+    tags: [not_null]
+    type: string
+  - _name: locale
+    refrences: locale.id
+    type: int16
+  - _name: is_multi_type
+    info: is_multi_type is true when test contains different type of questions, null when only MCQ is used
+    type: bool
+  - _name: paragraphs
+    type: json
+  - _name: time_limit
+    info: in minutes
+    type: int16
+  - _name: total_questions
+    type: int16
+  - _name: marks_per_question
+    type: int16
+  - _name: parent_id
+    refrences: test.id
+    type: int32
+type: object
+---
+name: test_catalogue
+properties:
+  - _name: test_id
+    refrences: test.id
+    tags: [id]
+    type: int32
+  - _name: catalogue_id
+    refrences: catalogue.id
+    tags: [id]
+    type: int16
+type: object
+---
+name: question
+properties:
+  - _name: id
+    tags: [random_id]
+    type: int64
+  - _name: test_id
+    refrences: test.id
+    tags: [not_null]
+    type: int32
+  - _name: question_type
+    tags: [not_null]
+    type: enum
+    values: [mcq, multi-mcq, true_false, fill_blanks, matching_pairs, sorting]
+  - _name: question_text
+    type: string
+  - _name: question_metadata
+    info: contains additional details of the question as per it's type, like options for MCQ type
+    tags: [not_null]
+    type: json
+  - _name: answer
+    tags: [not_null]
+    type: string
+  - _name: difficulty
+    type: enum
+    values: [easy, medium, difficult]
+  - _name: related_para
+    info: related paragraph index for this question (if any) which is stored in the parent test object
+    type: int16
+type: object
+---
+name: test_submission
+properties:
+  - _name: id
+    tags: [random_id]
+    type: int64
+  - _name: test_id
+    refrences: test.id
+    tags: [not_null]
+    type: int32
+  - _name: correct_answers
+    tags: [not_null]
+    type: int16
+  - _name: wrong_answers
+    tags: [not_null]
+    type: int16
+  - _name: questions_left
+    type: int16
+type: object
+---
+name: reported_question
+properties:
+  - _name: id
+    tags: [id]
+    type: int16
+  - _name: question_id
+    refrences: question.id
+    tags: [not_null]
+    type: int64
+  - _name: reportd_by
+    refrences: account.id
+    tags: [not_null]
+    type: int64
+  - _name: reviewed
+    type: bool
+  - _name: reviewed_by
+    refrences: account.id
+    type: int64
+  - _name: reported_on
+    tags: [not_null]
+    type: int64
+type: object

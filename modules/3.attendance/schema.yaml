@@ -1,0 +1,42 @@
+---
+name: attendance
+properties:
+  - _name: student_id
+    refrences: student.id
+    tags: [id]
+    type: int32
+  - _name: date
+    tags: [id]
+    type: int32
+  - _name: section_id
+    refrences: section.id
+    tags: [not_null]
+    type: int16
+  - _name: is_absent
+    type: bool
+  - _name: is_half_day
+    type: bool
+  - _name: is_late
+    type: bool
+type: object
+---
+name: off_day
+properties:
+  - _name: date
+    type: int32
+  - _name: class_id
+    refrences: _class.id
+    type: int16
+  - _name: section_id
+    refrences: section.id
+    type: int16
+  - _name: is_holiday
+    type: bool
+  - _name: is_weekend
+    type: bool
+  - _name: is_half_day
+    type: bool
+  - _name: description
+    max_length: 100
+    type: string
+type: object

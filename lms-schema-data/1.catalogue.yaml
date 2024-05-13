@@ -1,0 +1,39 @@
+---
+name: catalogue_type
+properties:
+  - _name: id
+    tags: [id]
+    type: int16
+  - _name: name
+    max_length: 30
+    tags: [not_null, unique]
+    type: string
+  - _name: parent
+    refrences: catalogue_type.id
+    tags: [not_null]
+    type: int16
+type: object
+---
+name: catalogue
+properties:
+  - _name: id
+    tags: [id]
+    type: int16
+  - _name: type
+    refrences: catalogue_type.id
+    tags: [not_null]
+    type: int16
+  - _name: name
+    max_length: 100
+    tags: [not_null]
+    type: string
+  - _name: icon
+    max_length: 255
+    type: string
+  - _name: attributes
+    type: json
+  - _name: parent
+    refrences: catalogue.id
+    tags: [not_null]
+    type: int16
+type: object

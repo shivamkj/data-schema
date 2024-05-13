@@ -1,0 +1,141 @@
+---
+name: payments
+type: object
+properties:
+  - _name: id
+    info: also serves as receipt id for now
+    tags: [id]
+    type: int32
+  - _name: student_id
+    refrences: student.id
+    type: int32
+  - _name: due_amount
+    tags: [not_null]
+    type: int16
+  - _name: paid_amount
+    tags: [not_null]
+    type: int16
+  - _name: concession
+    type: int16
+  - _name: late_fees
+    type: int16
+  - _name: status
+    tags: [not_null]
+    type: enum
+    values: [pending, partial_paid, paid]
+  - _name: section_id
+    refrences: section.id
+    tags: [not_null]
+    type: int16
+  - _name: paid_date
+    info: conatins last date, if paid in parts
+    type: date
+---
+name: payment_history
+info: Raw data of payments reiceved, just as it is without any calculation, for audit log purpose, delete not allowed
+type: object
+properties:
+  - _name: payment_date
+    tags: [not_null]
+    type: date
+  - _name: student_id
+    tags: [not_null]
+    type: int32
+  - _name: amount
+    tags: [not_null]
+    type: int16
+  - _name: mode
+    tags: [not_null]
+    type: enum
+    values: [cash, payment_gateway, bank_gateway]
+  - _name: collected_by
+    type: int32
+  - _name: status
+    tags: [not_null]
+    type: enum
+    values: [pending, partial_paid, paid]
+  - _name: payments_id
+    refrences: payments.id
+    tags: [not_null]
+    type: int32
+---
+name: receipt_particular
+info: For storing receipt particular details about the paid fees
+type: object
+properties:
+  - _name: payments_id
+    refrences: payments.id
+    tags: [id]
+    type: int32
+  - _name: particular_name
+    tags: [not_null]
+    type: string
+  - _name: amount
+    tags: [not_null]
+    type: int16
+---
+name: fees_details
+type: object
+properties:
+  - _name: id
+    tags: [id]
+    type: int16
+  - _name: name
+    type: string
+  - _name: due_date
+    type: date
+---
+name: class_fees
+type: object
+properties:
+  - _name: fees_details_id
+    refrences: fees_details.id
+    tags: [id]
+    type: int16
+  - _name: section_id
+    refrences: section.id
+    tags: [id]
+    type: int16
+---
+name: fees_particulars
+info: Raw data of payments reiceved, just as it is without any calculation, for audit log purpose, delete not allowed
+type: object
+properties:
+  - _name: id
+    tags: [id]
+    type: int16
+  - _name: name
+    tags: [not_null]
+    type: string
+  - _name: amount
+    tags: [not_null]
+    type: int16
+  - _name: frequency
+    tags: [not_null]
+    type: enum
+    values: [monthly, quaterly, yearly]
+  - _name: optional
+    type: bool
+  - _name: variable
+    type: bool
+  - _name: fees_details_id
+    refrences: fees_details.id
+    tags: [not_null]
+    type: int32
+---
+name: fees_config
+info: For storing variable and optional particular details for students
+type: object
+properties:
+  - _name: fees_particulars_id
+    refrences: fees_particulars.id
+    tags: [id]
+    type: int16
+  - _name: student_id
+    refrences: student.id
+    tags: [id]
+    type: int32
+  - _name: amount
+    type: int16
+  - _name: applicable
+    type: bool

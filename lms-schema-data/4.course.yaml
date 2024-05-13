@@ -1,0 +1,155 @@
+---
+name: course
+properties:
+  - _name: id
+    refrences: catalogue.id
+    tags: [id]
+    type: int16
+  - _name: cid
+    max_length: 3
+    tags: [unique, not_null]
+    type: string
+  - _name: name
+    max_length: 255
+    tags: [not_null]
+    type: string
+  - _name: locale
+    refrences: locale.id
+    type: int16
+  - _name: validity
+    info: in days
+    type: int16
+  - _name: price
+    tags: [not_null]
+    type: int16
+  - _name: discount_percent
+    type: int16
+  - _name: is_public
+    tags: [not_null]
+    type: bool
+  - _name: is_open
+    tags: [not_null]
+    type: bool
+  - _name: info
+    max_length: 100
+    type: string
+  - _name: description
+    refrences: document.id
+    type: int32
+  - _name: thumbnail
+    max_length: 255
+    type: string
+  - _name: starts_at
+    type: time
+  - _name: ends_at
+    type: time
+  - _name: created_at
+    tags: [not_null]
+    type: time
+  - _name: updated_at
+    tags: [not_null]
+    type: time
+type: object
+---
+name: course_teacher
+properties:
+  - _name: course_id
+    refrences: course.id
+    tags: [id]
+    type: int16
+  - _name: teacher_id
+    refrences: account.id
+    tags: [id]
+    type: int64
+  - _name: subject
+    max_length: 50
+    type: string
+  - _name: experience
+    type: int16
+  - _name: qualification
+    max_length: 50
+    type: string
+  - _name: about
+    refrences: document.id
+    type: int32
+type: object
+---
+name: course_faq
+properties:
+  - _name: id
+    tags: [id]
+    type: int16
+  - _name: question
+    max_length: 2000
+    tags: [not_null]
+    type: string
+  - _name: answer
+    max_length: 2000
+    tags: [not_null]
+    type: string
+  - _name: course_id
+    refrences: course.id
+    type: int16
+type: object
+---
+name: coupon
+properties:
+  - _name: id
+    tags: [id]
+    type: int16
+  - _name: code
+    max_length: 10
+    tags: [unique, not_null]
+    type: string
+  - _name: discount_percent
+    tags: [not_null]
+    type: int16
+  - _name: course_id
+    refrences: course.id
+    type: int16
+  - _name: use_limit
+    type: int16
+  - _name: valid_till
+    type: time
+type: object
+---
+name: payment
+properties:
+  - _name: id
+    tags: [random_id]
+    type: int64
+  - _name: user_id
+    refrences: account.id
+    type: int64
+  - _name: course_id
+    refrences: course.id
+    type: int16
+  - _name: amount
+    tags: [not_null]
+    type: int32
+  - _name: status
+    tags: [not_null]
+    type: enum
+    values: [created, completed, refunded]
+  - _name: initiated_at
+    tags: [not_null]
+    type: int64
+  - _name: coupon_id
+    refrences: coupon.id
+    type: int16
+type: object
+---
+name: refund
+properties:
+  - _name: payment_id
+    refrences: payment.id
+    tags: [id]
+    type: int64
+  - _name: refund_id
+    max_length: 100
+    tags: [not_null]
+    type: string
+  - _name: issued_at
+    tags: [not_null]
+    type: time
+type: object

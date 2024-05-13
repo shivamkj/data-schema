@@ -1,0 +1,50 @@
+---
+name: video
+properties:
+  - _name: id
+    tags: [id]
+    type: int32
+  - _name: title
+    max_length: 255
+    tags: [not_null]
+    type: string
+  - _name: is_public
+    tags: [not_null]
+    type: bool
+  - _name: processing_state
+    tags: [not_null]
+    type: enum
+    values: [pending, ongoing, completed]
+  - _name: duration
+    info: in minutes
+    tags: [not_null]
+    type: int16
+  - _name: video_url
+    max_length: 255
+    type: string
+  - _name: thumbnail_url
+    max_length: 255
+    type: string
+  - _name: processed_url
+    max_length: 255
+    type: string
+  - _name: uploaded_at
+    tags: [not_null]
+    type: time
+  - _name: uploaded_by
+    refrences: account.id
+    tags: [not_null]
+    type: int64
+type: object
+---
+name: video_catalogue
+properties:
+  - _name: video_id
+    refrences: video.id
+    tags: [id]
+    type: int32
+  - _name: catalogue_id
+    refrences: catalogue.id
+    tags: [id]
+    type: int16
+type: object

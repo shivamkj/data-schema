@@ -1,0 +1,44 @@
+---
+name: account
+properties:
+  - _name: id
+    tags: [random_id]
+    type: int64
+  - _name: email
+    max_length: 255
+    tags: [unique]
+    type: string
+  - _name: phone
+    max_length: 15
+    tags: [unique]
+    type: string
+  - _name: auth_providers
+    type: json
+  - _name: permission
+    type: binary
+  - _name: details_filled
+    type: bool
+  - _name: c_ids
+    max_length: 255
+    type: string
+  - _name: first_name
+    max_length: 100
+    type: string
+  - _name: last_name
+    max_length: 100
+    type: string
+  - _name: profile_pic
+    max_length: 2000
+    type: string
+  - _name: gender
+    type: enum
+    values: [female, male, other]
+  - _name: date_of_birth
+    type: int64
+  - _name: created_at
+    tags: [not_null]
+    type: int64
+  - _name: updated_at
+    tags: [not_null]
+    type: int64
+type: object

@@ -1,0 +1,40 @@
+---
+name: _class
+properties:
+  - _name: id
+    tags: [id]
+    type: int16
+  - _name: name
+    tags: [not_null]
+    type: string
+type: object
+---
+name: section
+properties:
+  - _name: id
+    tags: [id]
+    type: int16
+  - _name: name
+    tags: [not_null]
+    type: string
+  - _name: class_id
+    refrences: _class.id
+    tags: [not_null]
+    type: int16
+type: object
+---
+name: session
+properties:
+  - _name: id
+    tags: [id]
+    type: int16
+  - _name: name
+    tags: [not_null]
+    type: string
+  - _name: start_date
+    tags: [not_null]
+    type: date
+  - _name: end_date
+    tags: [not_null]
+    type: date
+type: object

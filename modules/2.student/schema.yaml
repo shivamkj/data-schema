@@ -1,0 +1,21 @@
+---
+name: student
+properties:
+  - _name: id
+    tags: [id]
+    type: int32
+  - _name: first_name
+    max_length: 100
+    tags: [not_null]
+    type: string
+  - _name: last_name
+    max_length: 100
+    type: string
+  - _name: profile_pic
+    max_length: 250
+    type: string
+  - _name: section_id
+    refrences: section.id
+    tags: [not_null]
+    type: int16
+type: object

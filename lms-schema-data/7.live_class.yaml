@@ -1,0 +1,49 @@
+---
+name: live_class
+properties:
+  - _name: id
+    tags: [random_id]
+    type: int64
+  - _name: course_id
+    refrences: course.id
+    type: int16
+  - _name: catalogue_id
+    refrences: catalogue.id
+    type: int16
+  - _name: teacher_id
+    refrences: account.id
+    type: int64
+  - _name: starts_at
+    tags: [not_null]
+    type: time
+  - _name: duration
+    info: in minutes
+    tags: [not_null]
+    type: int16
+  - _name: class_status
+    tags: [not_null]
+    type: enum
+    values: [scheduled, live, completed, canceled]
+type: object
+---
+name: live_class_material
+properties:
+  - _name: id
+    tags: [random_id]
+    type: int64
+  - _name: live_class_id
+    refrences: live_class.id
+    type: int64
+  - _name: document_id
+    refrences: document.id
+    type: int32
+  - _name: pdf_id
+    refrences: pdf.id
+    type: int32
+  - _name: test_id
+    refrences: test.id
+    type: int32
+  - _name: video_id
+    refrences: video.id
+    type: int32
+type: object

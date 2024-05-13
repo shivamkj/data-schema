@@ -1,0 +1,11 @@
+---
+name: locale
+properties:
+  - _name: id
+    tags: [id]
+    type: int16
+  - _name: name
+    max_length: 30
+    tags: [unique, not_null]
+    type: string
+type: object

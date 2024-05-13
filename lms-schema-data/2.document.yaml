@@ -1,0 +1,79 @@
+---
+name: document
+properties:
+  - _name: id
+    tags: [random_id]
+    type: int32
+  - _name: name
+    max_length: 255
+    tags: [not_null]
+    type: string
+  - _name: content
+    info: stored in markdown format
+    tags: [not_null]
+    type: string
+  - _name: is_public
+    type: bool
+  - _name: c_ids
+    max_length: 255
+    type: string
+  - _name: locale
+    refrences: locale.id
+    type: int16
+  - _name: created_at
+    tags: [not_null]
+    type: int64
+  - _name: updated_at
+    tags: [not_null]
+    type: int64
+type: object
+---
+name: document_catalogue
+properties:
+  - _name: document_id
+    refrences: document.id
+    tags: [id]
+    type: int32
+  - _name: catalogue_id
+    refrences: catalogue.id
+    tags: [id]
+    type: int16
+type: object
+---
+name: pdf
+properties:
+  - _name: id
+    tags: [random_id]
+    type: int32
+  - _name: file_name
+    max_length: 255
+    tags: [not_null]
+    type: string
+  - _name: file_url
+    max_length: 255
+    tags: [not_null]
+    type: string
+  - _name: locale
+    refrences: locale.id
+    type: int16
+  - _name: c_ids
+    max_length: 255
+    type: string
+  - _name: is_public
+    type: bool
+  - _name: uploaded_at
+    tags: [not_null]
+    type: int64
+type: object
+---
+name: pdf_catalogue
+properties:
+  - _name: pdf_id
+    refrences: pdf.id
+    tags: [id]
+    type: int32
+  - _name: catalogue_id
+    refrences: catalogue.id
+    tags: [id]
+    type: int16
+type: object
